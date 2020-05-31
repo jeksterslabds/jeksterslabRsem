@@ -1,0 +1,33 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+language: r
+r:
+- oldrel
+- release
+os:
+- linux
+- osx
+cache: packages
+before_install:
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo add-apt-repository -y ppa:cran/imagemagick; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo add-apt-repository -y ppa:cran/poppler; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -y libmagick++-dev; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -y libpoppler-cpp-dev; fi
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install imagemagick; fi
+# uncomment if poppler is not already installed in travis
+# - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install poppler; fi
+- Rscript -e 'if (!require("covr")) install.packages("covr")'
+- Rscript -e 'if (!require("pkgdown")) install.packages("pkgdown")'
+after_success:
+- Rscript -e 'covr::codecov()'
+- Rscript -e 'pkgdown::build_site()'
+deploy:
+  provider: pages
+  skip_cleanup: true
+  strategy: git
+  token: "$GITHUB_PAT"
+  keep_history: true
+  local_dir: docs
+  on:
+    branch: master
