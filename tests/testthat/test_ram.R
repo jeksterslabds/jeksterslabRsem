@@ -275,6 +275,12 @@ M <- ram_M(
   I = I,
   mu = mu
 )
+mutheta <- ram_mutheta(
+  A = A,
+  F = F,
+  I = I,
+  M = M
+)
 M <- as.vector(M)
 names(M) <- var_names
 #'
@@ -318,7 +324,7 @@ knitr::kable(
   caption = "Model-implied variance-covariance matrix"
 )
 knitr::kable(
-  x = M,
+  x = mutheta,
   row.names = TRUE,
   col.names = "$\\boldsymbol{\\mu}$",
   caption = "Model-implied mean vector"
@@ -361,10 +367,14 @@ test_that("theta and thetahat are equivalent", {
 })
 #'
 #+ testthat_02
-test_that("mu and muhat are equivalent", {
+test_that("mu, mutheta, and muhat are equivalent", {
   expect_equivalent(
     round(
       x = mu,
+      digits = 2
+    ),
+    round(
+      x = mutheta,
       digits = 2
     ),
     round(
