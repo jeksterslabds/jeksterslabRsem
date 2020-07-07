@@ -23,10 +23,14 @@ Depends:
 	R (>= 3.5.0)
 Imports:
     jeksterslabRmatrix,
+    jeksterslabRdist,
+    jeksterslabRdatarepo,
 	utils,
 	stats
 Remotes:
-    jeksterslabds/jeksterslabRmatrix
+    jeksterslabds/jeksterslabRmatrix,
+    jeksterslabds/jeksterslabRdist,
+    jeksterslabds/jeksterslabRdatarepo
 Suggests:
     MASS,
     lavaan,
