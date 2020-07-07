@@ -1,4 +1,4 @@
-#' Simple Mediation - Objective function
+#' Simple Mediation - Estimator
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @param theta Numeric vector.
@@ -14,6 +14,11 @@
 #'   `Sigmahat[1,1] =` \eqn{\mathrm{Var} \left( X \right)},
 #'   `Sigmahat[2,2] =` \eqn{\mathrm{Var} \left( M \right)},
 #'   `Sigmahat[3,3] =` \eqn{\mathrm{Var} \left( Y \right)}.
+#' @param obj Function.
+#'   Objectove function.
+#'   `fml` for [`fml()`],
+#'   `fgls` for [`fgls()`],
+#'   `fuls` for [`fuls()`].
 #' @examples
 #' X <- jeksterslabRdatarepo::thirst
 #' Sigmahat <- cov(X)
@@ -25,7 +30,8 @@
 #' )
 #' @export
 medsimpleobj <- function(theta,
-                         Sigmahat) {
+                         Sigmahat,
+                         obj = fml) {
   # Ensure that variance and residual variances are positive
   vars <- c(
     theta[4],
@@ -74,7 +80,7 @@ medsimpleobj <- function(theta,
   # return NA if there are errors in fml
   out <- tryCatch(
     {
-      fml(
+      obj(
         Sigmatheta = Sigmatheta,
         Sigma = Sigmahat
       )
