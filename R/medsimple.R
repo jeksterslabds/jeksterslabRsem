@@ -26,12 +26,27 @@
 #'   FUN = medsimple,
 #'   start_values = rep(x = 0.20, times = 6),
 #'   optim = TRUE,
-#'   Sigmahat = Sigmahat
+#'   Sigmahat = Sigmahat,
+#'   obj = fml
+#' )
+#' jeksterslabRdist::opt(
+#'   FUN = medsimple,
+#'   start_values = rep(x = 0.20, times = 6),
+#'   optim = TRUE,
+#'   Sigmahat = Sigmahat,
+#'   obj = fgls
+#' )
+#' jeksterslabRdist::opt(
+#'   FUN = medsimple,
+#'   start_values = rep(x = 0.20, times = 6),
+#'   optim = TRUE,
+#'   Sigmahat = Sigmahat,
+#'   obj = fuls
 #' )
 #' @export
 medsimple <- function(theta,
-                         Sigmahat,
-                         obj = fml) {
+                      Sigmahat,
+                      obj = fml) {
   # Ensure that variance and residual variances are positive
   vars <- c(
     theta[4],
