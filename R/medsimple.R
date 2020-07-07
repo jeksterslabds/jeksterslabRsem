@@ -23,13 +23,13 @@
 #' X <- jeksterslabRdatarepo::thirst
 #' Sigmahat <- cov(X)
 #' jeksterslabRdist::opt(
-#'   FUN = medsimpleobj,
+#'   FUN = medsimple,
 #'   start_values = rep(x = 0.20, times = 6),
 #'   optim = TRUE,
 #'   Sigmahat = Sigmahat
 #' )
 #' @export
-medsimpleobj <- function(theta,
+medsimple <- function(theta,
                          Sigmahat,
                          obj = fml) {
   # Ensure that variance and residual variances are positive
