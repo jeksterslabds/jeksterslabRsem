@@ -225,7 +225,7 @@ ram_Sigmatheta <- function(A,
 #'   \right)^{-1}
 #'   \mathbf{M}
 #' }
-#' 
+#'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @family SEM notation functions
 #' @keywords matrix ram
@@ -280,7 +280,7 @@ ram_mutheta <- function(A,
 #'     \boldsymbol{\theta}
 #'   \right)
 #' }
-#' 
+#'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @family SEM notation functions
 #' @keywords matrix ram
@@ -335,8 +335,8 @@ ram_M <- function(A,
 #' \eqn{\left( \sigma^2 \right)}
 #' vector (variances).
 #' **Note that the first element in the A ans S matrices should be an exogenous variable.**
-#' 
-#' @author Ivan Jacob Agaloos Pesigan 
+#'
+#' @author Ivan Jacob Agaloos Pesigan
 #' @family SEM notation functions
 #' @keywords matrix ram
 #' @inheritParams ram_Sigmatheta
@@ -459,7 +459,7 @@ ram_S <- function(A,
 #'     \hat{\theta}
 #'   \right)
 #' }
-#' 
+#'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @family SEM notation functions
 #' @keywords matrix ram
