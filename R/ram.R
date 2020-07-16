@@ -96,7 +96,7 @@
 #'     \left(
 #'       \mathbf{I} - \mathbf{A}
 #'     \right)^{-1}
-#'   \right]^{\prime} , \\
+#'   \right]^{\prime} ,
 #'   \quad
 #'   \text{when}
 #'   \quad
