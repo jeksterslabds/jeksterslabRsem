@@ -98,7 +98,7 @@
 #'     \right)^{-1}
 #'   \right]^{\prime} ,
 #'   \quad
-#'   \text{when}
+#'   \mathrm{when}
 #'   \quad
 #'   \mathbf{F}
 #'   =
