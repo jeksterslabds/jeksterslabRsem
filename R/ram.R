@@ -1,32 +1,55 @@
 #' Reticular Action Model - Model-Implied Variance Covariance Matrix
-#' \eqn{\left( \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right) \right)}
+#' \eqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-Sigmatheta)
+#' }
 #'
-#' Derives the model-implied variance-covariance matrix
-#' \eqn{\left( \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right) \right)}
-#' using the Reticular Action Model notation.
+#' @description Derives the model-implied variance-covariance matrix
+#' \eqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-Sigmatheta)
+#' }
+#' using the Reticular Action Model (RAM) notation.
 #'
-#' The model-implied variance-covariance matrix
-#' \eqn{\left( \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right) \right)}
-#' as a function of Reticular Action Model matrices
+#' @details The model-implied variance-covariance matrix
+#' \eqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-Sigmatheta)
+#' }
+#' as a function of Reticular Action Model (RAM) matrices
 #' is given by
-#'   \deqn{
-#'     \boldsymbol{\Sigma}
+#' \deqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   =
+#'   \mathbf{F}
+#'   \left(
+#'     \mathbf{I}
+#'     -
+#'     \mathbf{A}
+#'   \right)^{-1}
+#'   \mathbf{S}
+#'   \left[
 #'     \left(
-#'       \boldsymbol{\theta}
-#'     \right)
-#'     =
-#'     \mathbf{F}
-#'     \left(
-#'       \mathbf{I} - \mathbf{A}
+#'       \mathbf{I}
+#'       -
+#'       \mathbf{A}
 #'     \right)^{-1}
-#'     \mathbf{S}
-#'     \left[
-#'       \left(
-#'         \mathbf{I} - \mathbf{A}
-#'       \right)^{-1}
-#'     \right]^{\prime}
-#'     \mathbf{F}^{\prime}
-#'   }
+#'   \right]^{\prime}
+#'   \mathbf{F}^{\prime}
+#'   %(\#eq:sem-ram-Sigmatheta)
+#' }
 #' where
 #' \eqn{\mathbf{A}}
 #' represents asymmetric paths (single-headed arrows),
@@ -43,48 +66,63 @@
 #' When all the variables
 #' in the \eqn{\mathbf{A}} and \eqn{\mathbf{S}} matrices
 #' are observed,
-#'   \deqn{
-#'     \boldsymbol{\Sigma}
+#' \deqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   =
+#'   \mathbf{F}
+#'   \left(
+#'     \mathbf{I}
+#'     -
+#'     \mathbf{A}
+#'   \right)^{-1}
+#'   \mathbf{S}
+#'   \left[
 #'     \left(
-#'       \boldsymbol{\theta}
-#'     \right)
-#'     =
-#'     \mathbf{F}
-#'     \left(
-#'       \mathbf{I} - \mathbf{A}
+#'       \mathbf{I}
+#'       -
+#'       \mathbf{A}
 #'     \right)^{-1}
-#'     \mathbf{S}
-#'     \left[
-#'       \left(
-#'         \mathbf{I} - \mathbf{A}
-#'       \right)^{-1}
-#'     \right]^{\prime}
-#'     \mathbf{F}^{\prime}
-#'     =
+#'   \right]^{\prime}
+#'   \mathbf{F}^{\prime}
+#'   =
+#'   \left(
+#'     \mathbf{I}
+#'     -
+#'     \mathbf{A}
+#'   \right)^{-1}
+#'   \mathbf{S}
+#'   \left[
 #'     \left(
-#'       \mathbf{I} - \mathbf{A}
+#'       \mathbf{I}
+#'       -
+#'       \mathbf{A}
 #'     \right)^{-1}
-#'     \mathbf{S}
-#'     \left[
-#'       \left(
-#'         \mathbf{I} - \mathbf{A}
-#'       \right)^{-1}
-#'     \right]^{\prime} , \\
-#'     \text{ when }
-#'     \mathbf{F} = \mathbf{I} .
-#'   }
+#'   \right]^{\prime} , \\
+#'   \quad
+#'   \text{when}
+#'   \quad
+#'   \mathbf{F}
+#'   =
+#'   \mathbf{I} .
+#'   %(\#eq:sem-ram-Sigmatheta-observed)
+#' }
 #'
 #' @author Ivan Jacob Agaloos Pesigan
-#' @param A Matrix.
+#' @family SEM notation functions
+#' @keywords matrix ram
+#' @param A \eqn{\mathbf{A}} matrix.
 #' Asymmetric paths (single-headed arrows),
 #' such as regression coefficients and factor loadings.
-#' @param S Matrix.
+#' @param S \eqn{\mathbf{S}} matrix.
 #' Symmetric paths (double-headed arrows),
 #' such as variances and covariances.
-#' @param F Matrix.
+#' @param F \eqn{\mathbf{F}} matrix.
 #' Filter matrix
 #' used to select the observed variables.
-#' @param I Matrix.
+#' @param I \eqn{\mathbf{I}} matrix.
 #' Identity matrix.
 #' @param filter Logical.
 #' If `TRUE`, the `F` matrix is used.
@@ -97,47 +135,53 @@
 #' \eqn{\mathbf{F}}, and
 #' \eqn{\mathbf{I}} matrices.
 #' If `filter = TRUE`, the `F` matrix is used as usual.
-#'   \deqn{
-#'     \mathbf{F}
-#'     \left(
-#'       \mathbf{I} - \mathbf{A}
-#'     \right)^{-1}
-#'     \mathbf{S}
-#'     \left[
-#'       \left(
-#'         \mathbf{I} - \mathbf{A}
-#'       \right)^{-1}
-#'     \right]^{\prime}
-#'     \mathbf{F}^{\prime} .
-#'   }
-#' If `filter = FALSE`, the `F` matrix is omitted.
 #' \deqn{
+#'   \boldsymbol{\Sigma}
 #'   \left(
-#'     \mathbf{I} - \mathbf{A}
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   =
+#'   \mathbf{F}
+#'   \left(
+#'     \mathbf{I}
+#'     -
+#'     \mathbf{A}
 #'   \right)^{-1}
 #'   \mathbf{S}
 #'   \left[
 #'     \left(
-#'       \mathbf{I} - \mathbf{A}
+#'       \mathbf{I}
+#'       -
+#'       \mathbf{A}
 #'     \right)^{-1}
 #'   \right]^{\prime}
-#' } .
-#' @references
-#' McArdle, J. J. (2013).
-#' The development of the RAM rules for latent variable structural equation modeling.
-#' In A. Maydeu-Olivares & J. J. McArdle (Eds.),
-#' *Contemporary Psychometrics: A festschrift for Roderick P. McDonald* (pp. 225--273).
-#' Lawrence Erlbaum Associates.
-#'
-#' McArdle, J. J., & McDonald, R. P. (1984).
-#' Some algebraic properties of the Reticular Action Model for moment structures.
-#' *British Journal of Mathematical and Statistical Psychology*, *37* (2), 234--251.
-#' @family SEM notation functions
-#' @keywords matrix ram
+#'   \mathbf{F}^{\prime}
+#'   %(\#eq:sem-ram-Sigmatheta)
+#' }
+#' If `filter = FALSE`, the `F` matrix is omitted.
+#' \deqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   =
+#'   \left(
+#'     \mathbf{I}
+#'     -
+#'     \mathbf{A}
+#'   \right)^{-1}
+#'   \mathbf{S}
+#'   \left[
+#'     \left(
+#'       \mathbf{I}
+#'       -
+#'       \mathbf{A}
+#'     \right)^{-1}
+#'   \right]^{\prime} .
+#'   %(\#eq:sem-ram-Sigmatheta-filter-false)
+#' }
 #' @examples
-#' #################################################
-#' # Simple mediation model with observed variables.
-#' #################################################
+#' # Simple mediation model with observed variables------------------------------
 #' # parameters
 #' alpha <- 0.5
 #' beta <- 0.4
@@ -170,9 +214,7 @@
 #' F[3, 3] <- 1
 #' # In this case since F is not equal to I, we CANNOT use filter = FALSE
 #' ram_Sigmatheta(A = A, S = S, F = F, I = I)
-#' #######################
-#' # One-factor CFA model.
-#' #######################
+#' # One-factor CFA model--------------------------------------------------------
 #' A <- matrix(data = 0, ncol = 6, nrow = 6)
 #' for (i in 2:6) {
 #'   A[i, 1] <- 0.5
@@ -187,14 +229,22 @@
 #'   F = F,
 #'   I = I
 #' )
+#' @references
+#' McArdle, J. J. (2013).
+#' The development of the RAM rules for latent variable structural equation modeling.
+#' In A. Maydeu-Olivares & J. J. McArdle (Eds.),
+#' *Contemporary Psychometrics: A festschrift for Roderick P. McDonald* (pp. 225--273).
+#' Lawrence Erlbaum Associates.
+#'
+#' McArdle, J. J., & McDonald, R. P. (1984).
+#' Some algebraic properties of the Reticular Action Model for moment structures.
+#' *British Journal of Mathematical and Statistical Psychology*, *37* (2), 234--251.
 #' @export
 ram_Sigmatheta <- function(A,
                            S,
                            F,
                            I,
                            filter = TRUE) {
-  #  x <- solve(I - A)
-  #  F %*% x %*% S %*% t(x) %*% t(F)
   inverse <- solve(I - A)
   full <- inverse %*% S %*% t(inverse)
   if (filter) {
@@ -205,12 +255,34 @@ ram_Sigmatheta <- function(A,
 }
 
 #' Reticular Action Model - Model-Implied Mean Vector
-#' \eqn{\left( \boldsymbol{\mu} \right)}
+#' \eqn{
+#'   \boldsymbol{\mu}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-mutheta)
+#' }
 #'
-#' Derives the model-implied
-#' \eqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)} vector
-#' using the Reticular Action Model notation.
+#' @description Derives the model-implied mean vector
+#' \eqn{
+#'   \boldsymbol{\mu}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-mutheta)
+#' }
+#' using the Reticular Action Model (RAM) notation.
 #'
+#' @details The model-implied mean vector
+#' \eqn{
+#'   \boldsymbol{\mu}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-mutheta)
+#' }
+#' as a function of Reticular Action Model (RAM) matrices
+#' is given by
 #' \deqn{
 #'   \boldsymbol{\mu}
 #'   \left(
@@ -224,6 +296,7 @@ ram_Sigmatheta <- function(A,
 #'     \mathbf{A}
 #'   \right)^{-1}
 #'   \mathbf{M}
+#'   %(\#eq:sem-ram-mutheta)
 #' }
 #'
 #' @author Ivan Jacob Agaloos Pesigan
@@ -235,10 +308,18 @@ ram_Sigmatheta <- function(A,
 #' Mean structure.
 #' Vector of means and intercepts.
 #' @return Returns the means
-#' \eqn{\left( \boldsymbol{\mu} \left( \boldsymbol{\theta} \right) \right)}
-#' derived from the \eqn{\mathbf{A}},
+#' \eqn{
+#'   \boldsymbol{\mu}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-mutheta)
+#' }
+#' derived from the
+#' \eqn{\mathbf{A}},
 #' \eqn{\mathbf{F}},
-#' \eqn{\mathbf{I}}, matrices and
+#' \eqn{\mathbf{I}},
+#' matrices and
 #' \eqn{\mathbf{M}} vector.
 #' @examples
 #' A <- matrix(
@@ -261,13 +342,24 @@ ram_mutheta <- function(A,
 }
 
 #' Reticular Action Model - Mean Structure Vector
-#' \eqn{\left( \mathbf{M} \right)}
+#' \eqn{
+#'   \mathbf{M}
+#' }
 #'
-#' Mean structure vector
-#' \eqn{\left( \mathbf{M} \right)}
-#' using the Reticular Action Model notation.
+#' @description Derives the mean structure vector
+#' \eqn{
+#'   \mathbf{M}
+#' }
+#' using the Reticular Action Model (RAM) notation.
 #'
-#' \deqn{\mathbf{M}
+#' @details The mean structure vector
+#' \eqn{
+#'   \mathbf{M}
+#' }
+#' as a function of Reticular Action Model (RAM) matrices
+#' is given by
+#' \deqn{
+#'   \mathbf{M}
 #'   =
 #'   \mathbf{F}
 #'   \left(
@@ -279,6 +371,7 @@ ram_mutheta <- function(A,
 #'   \left(
 #'     \boldsymbol{\theta}
 #'   \right)
+#'   %(\#eq:sem-ram-M)
 #' }
 #'
 #' @author Ivan Jacob Agaloos Pesigan
@@ -288,12 +381,30 @@ ram_mutheta <- function(A,
 #' @inherit ram_Sigmatheta references
 #' @param mu Numeric vector.
 #' Vector of means
-#' \eqn{\left( \boldsymbol{\mu} \left( \boldsymbol{\theta} \right) \right)}.
-#' @return Returns the mean structure vector \eqn{\left( \mathbf{M} \right)}
-#' derived from the \eqn{\mathbf{A}},
+#' \eqn{
+#'   \boldsymbol{\mu}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-mutheta)
+#' } .
+#' @return Returns the mean structure vector
+#' \eqn{
+#'   \mathbf{M}
+#' }
+#' derived from the
+#' \eqn{\mathbf{A}},
 #' \eqn{\mathbf{F}},
-#' \eqn{\mathbf{I}}, matrices and
-#' \eqn{\left( \boldsymbol{\mu} \left( \boldsymbol{\theta} \right) \right)} vector.
+#' \eqn{\mathbf{I}},
+#' matrices and
+#' \eqn{
+#'   \boldsymbol{\mu}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-mutheta)
+#' }
+#' vector.
 #' @examples
 #' A <- matrix(
 #'   data = c(
@@ -314,22 +425,50 @@ ram_M <- function(A,
   F %*% (I - A) %*% mu
 }
 
-#' Reticular Action Model - Model-Implied Variance Covariance Matrix or S Matrix
-#' \eqn{\left( \boldsymbol{\Sigma}} or \eqn{\mathbf{S} \right)}
+#' Reticular Action Model - Model-Implied Variance Covariance Matrix
+#' \eqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-Sigmatheta)
+#' }
+#' or
+#' \eqn{
+#'   \mathbf{S}
+#' }
+#' Matrix
 #'
-#' Model-implied variance-covariance matrix
-#' \eqn{\left( \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right) \right)}
-#' or \eqn{\mathbf{S}} Matrix
-#' using the Reticular Action Model notation.
-#'
-#' Derives the
-#' model-implied variance-covariance matrix
-#' \eqn{\left( \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right) \right)}
-#' or the
-#' \eqn{\mathbf{S}}
+#' @description Derives the model-implied variance-covariance matrix
+#' \eqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-Sigmatheta)
+#' }
+#' or
+#' \eqn{
+#'   \mathbf{S}
+#' }
 #' matrix
-#' from the
-#' \eqn{\mathbf{A}}
+#' using the Reticular Action Model (RAM) notation.
+#'
+#' @details The model-implied variance-covariance matrix
+#' \eqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-Sigmatheta)
+#' }
+#' or
+#' \eqn{
+#'   \mathbf{S}
+#' }
+#' matrix
+#' is derived using
+#' the \eqn{\mathbf{A}}
 #' matrix
 #' and sigma squared
 #' \eqn{\left( \sigma^2 \right)}
@@ -342,26 +481,41 @@ ram_M <- function(A,
 #' @inheritParams ram_Sigmatheta
 #' @inherit ram_Sigmatheta references
 #' @param sigma2 Numeric vector.
-#' Vector of variances \eqn{\left( \sigma^2 \right)}.
+#' Vector of variances \eqn{\sigma^2}.
 #' **The first element should be the variance of an exogenous variable**
 #' @param SigmaMatrix Logical.
 #' If `TRUE`,
 #' returns
 #' the model-implied variance-covariance matrix
-#' \eqn{\left( \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right) \right)}.
+#' \eqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-Sigmatheta)
+#' } .
 #' If `FALSE`,
 #' returns the
-#' \eqn{\mathbf{S}}
+#' \eqn{
+#'   \mathbf{S}
+#' }
 #' matrix.
 #' @return Returns
 #' the model-implied variance-covariance matrix
-#' \eqn{\left( \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right) \right)}
+#' \eqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-Sigmatheta)
+#' }
 #' or the
-#' \eqn{\mathbf{S}}
+#' \eqn{
+#'   \mathbf{S}
+#' }
 #' matrix
 #' derived from the
-#' \eqn{\mathbf{A}}
-#' matrix and
+#' \eqn{\mathbf{A}} matrix and
 #' \eqn{\sigma^2}
 #' vector.
 #' @examples
@@ -379,6 +533,28 @@ ram_M <- function(A,
 #' ram_S(A = A, sigma2 = sigma2, F = F, I = I, SigmaMatrix = TRUE)
 #' # Returns the model-implied S matrix
 #' ram_S(A = A, sigma2 = sigma2, F = F, I = I, SigmaMatrix = FALSE)
+#' # One-factor CFA model--------------------------------------------------------
+#' A <- matrix(data = 0, ncol = 6, nrow = 6)
+#' for (i in 2:6) {
+#'   A[i, 1] <- 0.5
+#' }
+#' sigma2 <- c(1, 1, 1, 1, 1, 1)
+#' F <- I <- diag(nrow(A))
+#' F <- diag(nrow(A) - 1)
+#' F <- cbind(0, F)
+#' ram_S(
+#'   A = A,
+#'   sigma2 = sigma2,
+#'   F = F,
+#'   I = I
+#' )
+#' ram_S(
+#'   A = A,
+#'   sigma2 = sigma2,
+#'   F = F,
+#'   I = I,
+#'   SigmaMatrix = FALSE
+#' )
 #' @export
 ram_S <- function(A,
                   sigma2,
@@ -449,16 +625,66 @@ ram_S <- function(A,
 }
 
 #' Reticular Action Model - Residuals
-#' \eqn{\left( \hat{\Sigma} - \hat{\Sigma} \left( \hat{\theta} \right) \right)}
+#' \eqn{
+#'   \boldsymbol{
+#'     \hat{\Sigma}
+#'   }
+#'   -
+#'   \boldsymbol{
+#'     \hat{\Sigma}
+#'   }
+#'   \left(
+#'     \boldsymbol{
+#'       \hat{\theta}
+#'     }
+#'   \right)
+#'   %(\#eq:sem-residuals)
+#' }
 #'
 #' \deqn{
-#'   \hat{\Sigma}
+#'   \boldsymbol{
+#'     \hat{\Sigma}
+#'   }
 #'   -
-#'   \hat{\Sigma}
+#'   \boldsymbol{
+#'     \hat{\Sigma}
+#'   }
 #'   \left(
-#'     \hat{\theta}
+#'     \boldsymbol{
+#'       \hat{\theta}
+#'     }
 #'   \right)
+#'   %(\#eq:sem-residuals)
 #' }
+#' where
+#' \deqn{
+#'   \boldsymbol{
+#'     \hat{\Sigma}
+#'   }
+#'   \left(
+#'     \hat{
+#'       \boldsymbol{\theta}
+#'     }
+#'   \right)
+#'   =
+#'   \mathbf{F}
+#'   \left(
+#'     \mathbf{I}
+#'     -
+#'     \mathbf{\hat{A}}
+#'   \right)^{-1}
+#'   \mathbf{\hat{S}}
+#'   \left[
+#'     \left(
+#'       \mathbf{I}
+#'       -
+#'       \mathbf{\hat{A}}
+#'     \right)^{-1}
+#'   \right]^{\prime}
+#'   \mathbf{F}^{\prime} .
+#'   %(\#eq:sem-ram-Sigmahatthetahat)
+#' }
+#' Items with a hat (^) are estimates using the sample data.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @family SEM notation functions
@@ -466,24 +692,37 @@ ram_S <- function(A,
 #' @inheritParams ram_Sigmatheta
 #' @param Sigmahat Matrix.
 #' Estimated variance-covariance matrix
-#' \eqn{\left( \hat{\boldsymbol{\Sigma}} \right)}
+#' \eqn{
+#'   \boldsymbol{
+#'     \hat{\Sigma}
+#'   }
+#' }
 #' @param Sigmathetahat Matrix.
 #' Model-implied variance-covariance matrix
 #' as a function of estimated parameters
-#' \eqn{\left( \boldsymbol{\Sigma}\left( \hat{\boldsymbol{\theta}} \right) \right)}.
-#' @param Ahat Matrix.
+#' \eqn{
+#'   \boldsymbol{
+#'     \hat{\Sigma}
+#'   }
+#'   \left(
+#'     \boldsymbol{
+#'       \hat{\theta}
+#'     }
+#'   \right)
+#' } .
+#' @param Ahat \eqn{mathbf{\hat{A}}} matrix.
 #' Estimated asymmetric paths (single-headed arrows),
-#' such as regression coefficients and factor loadings.
-#' @param Shat Matrix.
+#' such as regression coefficients and factor loadings
+#' @param Shat \eqn{mathbf{\hat{S}}} matrix.
 #' Estimated symmetric paths (double-headed arrows),
 #' representing variances and covariances.
 #' @export
-ram_e <- function(Sigmahat,
-                  Sigmathetahat = NULL,
-                  Ahat,
-                  Shat,
-                  F,
-                  I) {
+ram_residuals <- function(Sigmahat,
+                          Sigmathetahat = NULL,
+                          Ahat,
+                          Shat,
+                          F,
+                          I) {
   if (is.null(Sigmathetahat)) {
     Sigmathetahat <- ram_Sigmatheta(
       A = Ahat,
