@@ -37,7 +37,5 @@ Suggests:
 	knitr,
 	rmarkdown,
 	testthat,
-    microbenchmark,
-    magick,
-    pdftools
+    microbenchmark
 RoxygenNote: 7.1.1
