@@ -35,16 +35,12 @@
 #'   =
 #'   \mathbf{F}
 #'   \left(
-#'     \mathbf{I}
-#'     -
-#'     \mathbf{A}
+#'     \mathbf{I} - \mathbf{A}
 #'   \right)^{-1}
 #'   \mathbf{S}
 #'   \left[
 #'     \left(
-#'       \mathbf{I}
-#'       -
-#'       \mathbf{A}
+#'       \mathbf{I} - \mathbf{A}
 #'     \right)^{-1}
 #'   \right]^{\prime}
 #'   \mathbf{F}^{\prime}
@@ -74,31 +70,31 @@
 #'   =
 #'   \mathbf{F}
 #'   \left(
-#'     \mathbf{I}
-#'     -
-#'     \mathbf{A}
+#'     \mathbf{I} - \mathbf{A}
 #'   \right)^{-1}
 #'   \mathbf{S}
 #'   \left[
 #'     \left(
-#'       \mathbf{I}
-#'       -
-#'       \mathbf{A}
+#'       \mathbf{I} - \mathbf{A}
 #'     \right)^{-1}
 #'   \right]^{\prime}
 #'   \mathbf{F}^{\prime}
+#'   %(\#eq:sem-ram-Sigmatheta)
+#' }
+#' is equl to
+#' \deqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
 #'   =
 #'   \left(
-#'     \mathbf{I}
-#'     -
-#'     \mathbf{A}
+#'     \mathbf{I} - \mathbf{A}
 #'   \right)^{-1}
 #'   \mathbf{S}
 #'   \left[
 #'     \left(
-#'       \mathbf{I}
-#'       -
-#'       \mathbf{A}
+#'       \mathbf{I} - \mathbf{A}
 #'     \right)^{-1}
 #'   \right]^{\prime} , \\
 #'   \quad
@@ -143,16 +139,12 @@
 #'   =
 #'   \mathbf{F}
 #'   \left(
-#'     \mathbf{I}
-#'     -
-#'     \mathbf{A}
+#'     \mathbf{I} - \mathbf{A}
 #'   \right)^{-1}
 #'   \mathbf{S}
 #'   \left[
 #'     \left(
-#'       \mathbf{I}
-#'       -
-#'       \mathbf{A}
+#'       \mathbf{I} - \mathbf{A}
 #'     \right)^{-1}
 #'   \right]^{\prime}
 #'   \mathbf{F}^{\prime}
@@ -166,16 +158,12 @@
 #'   \right)
 #'   =
 #'   \left(
-#'     \mathbf{I}
-#'     -
-#'     \mathbf{A}
+#'     \mathbf{I} - \mathbf{A}
 #'   \right)^{-1}
 #'   \mathbf{S}
 #'   \left[
 #'     \left(
-#'       \mathbf{I}
-#'       -
-#'       \mathbf{A}
+#'       \mathbf{I} - \mathbf{A}
 #'     \right)^{-1}
 #'   \right]^{\prime} .
 #'   %(\#eq:sem-ram-Sigmatheta-filter-false)
@@ -230,15 +218,15 @@
 #'   I = I
 #' )
 #' @references
-#' McArdle, J. J. (2013).
-#' The development of the RAM rules for latent variable structural equation modeling.
-#' In A. Maydeu-Olivares & J. J. McArdle (Eds.),
-#' *Contemporary Psychometrics: A festschrift for Roderick P. McDonald* (pp. 225--273).
-#' Lawrence Erlbaum Associates.
+#'   McArdle, J. J. (2013).
+#'   The development of the RAM rules for latent variable structural equation modeling.
+#'   In A. Maydeu-Olivares & J. J. McArdle (Eds.),
+#'   *Contemporary Psychometrics: A festschrift for Roderick P. McDonald* (pp. 225--273).
+#'   Lawrence Erlbaum Associates.
 #'
-#' McArdle, J. J., & McDonald, R. P. (1984).
-#' Some algebraic properties of the Reticular Action Model for moment structures.
-#' *British Journal of Mathematical and Statistical Psychology*, *37* (2), 234--251.
+#'   McArdle, J. J., & McDonald, R. P. (1984).
+#'   Some algebraic properties of the Reticular Action Model for moment structures.
+#'   *British Journal of Mathematical and Statistical Psychology*, *37* (2), 234--251.
 #' @export
 ram_Sigmatheta <- function(A,
                            S,
@@ -291,9 +279,7 @@ ram_Sigmatheta <- function(A,
 #'   =
 #'   \mathbf{F}
 #'   \left(
-#'     \mathbf{I}
-#'     -
-#'     \mathbf{A}
+#'     \mathbf{I} - \mathbf{A}
 #'   \right)^{-1}
 #'   \mathbf{M}
 #'   %(\#eq:sem-ram-mutheta)
@@ -363,9 +349,7 @@ ram_mutheta <- function(A,
 #'   =
 #'   \mathbf{F}
 #'   \left(
-#'     \mathbf{I}
-#'     -
-#'     \mathbf{A}
+#'     \mathbf{I} - \mathbf{A}
 #'   \right)^{-1}
 #'   \boldsymbol{\mu}
 #'   \left(
@@ -669,16 +653,12 @@ ram_S <- function(A,
 #'   =
 #'   \mathbf{F}
 #'   \left(
-#'     \mathbf{I}
-#'     -
-#'     \mathbf{\hat{A}}
+#'     \mathbf{I} - \mathbf{\hat{A}}
 #'   \right)^{-1}
 #'   \mathbf{\hat{S}}
 #'   \left[
 #'     \left(
-#'       \mathbf{I}
-#'       -
-#'       \mathbf{\hat{A}}
+#'       \mathbf{I} - \mathbf{\hat{A}}
 #'     \right)^{-1}
 #'   \right]^{\prime}
 #'   \mathbf{F}^{\prime} .
