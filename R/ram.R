@@ -608,9 +608,10 @@ ram_S <- function(A,
                   sigma2,
                   F,
                   I,
+                  both = FALSE
                   SigmaMatrix = TRUE,
-                  filter = TRUE,
-                  both = FALSE) {
+                  filter = TRUE
+                  ) {
   #  S <- matrix(
   #    data = 0,
   #    ncol = dim(A)[1],
@@ -682,7 +683,6 @@ ram_S <- function(A,
   } else {
     return(S)
   }
-
 }
 
 #' Reticular Action Model - Residuals
