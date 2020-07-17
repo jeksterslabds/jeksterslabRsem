@@ -669,11 +669,6 @@ ram_S <- function(A,
       filter = TRUE
     )
   }
-  if (SigmaMatrix) {
-    return(Sigmatheta)
-  } else {
-    return(S)
-  }
   if (both) {
     return(
       list(
@@ -682,6 +677,12 @@ ram_S <- function(A,
       )
     )
   }
+  if (SigmaMatrix) {
+    return(Sigmatheta)
+  } else {
+    return(S)
+  }
+
 }
 
 #' Reticular Action Model - Residuals
