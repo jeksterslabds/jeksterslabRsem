@@ -425,21 +425,14 @@ ram_M <- function(A,
   }
 }
 
-#' Reticular Action Model - Model-Implied Variance Covariance Matrix
-#' \eqn{
-#'   \boldsymbol{\Sigma}
-#'   \left(
-#'     \boldsymbol{\theta}
-#'   \right)
-#'   %(\#eq:sem-Sigmatheta)
-#' }
-#' or
+#' Reticular Action Model -
+#' The
 #' \eqn{
 #'   \mathbf{S}
 #' }
 #' Matrix
-#'
-#' @description Derives the model-implied variance-covariance matrix
+#' and
+#' The Model-Implied Variance Covariance Matrix
 #' \eqn{
 #'   \boldsymbol{\Sigma}
 #'   \left(
@@ -447,14 +440,31 @@ ram_M <- function(A,
 #'   \right)
 #'   %(\#eq:sem-Sigmatheta)
 #' }
-#' or
+#'
+#' @description Derives the
 #' \eqn{
 #'   \mathbf{S}
 #' }
 #' matrix
+#' and
+#' the model-implied variance-covariance matrix
+#' \eqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-Sigmatheta)
+#' }
 #' using the Reticular Action Model (RAM) notation.
 #'
-#' @details The model-implied variance-covariance matrix
+#' @details
+#' The
+#' \eqn{
+#'   \mathbf{S}
+#' }
+#' matrix
+#' and
+#' the model-implied variance-covariance matrix
 #' \eqn{
 #'   \boldsymbol{\Sigma}
 #'   \left(
@@ -462,12 +472,7 @@ ram_M <- function(A,
 #'   \right)
 #'   %(\#eq:sem-Sigmatheta)
 #' }
-#' or
-#' \eqn{
-#'   \mathbf{S}
-#' }
-#' matrix
-#' is derived using
+#' are derived using
 #' the \eqn{\mathbf{A}}
 #' matrix
 #' and sigma squared
@@ -500,7 +505,14 @@ ram_M <- function(A,
 #'   \mathbf{S}
 #' }
 #' matrix.
-#' @return Returns
+#' @param both Logical.
+#' If `TRUE`, returns both
+#' the
+#' \eqn{
+#'   \mathbf{S}
+#' }
+#' marix
+#' and
 #' the model-implied variance-covariance matrix
 #' \eqn{
 #'   \boldsymbol{\Sigma}
@@ -509,15 +521,46 @@ ram_M <- function(A,
 #'   \right)
 #'   %(\#eq:sem-Sigmatheta)
 #' }
-#' or the
+#' in a list.
+#' @return If `both = TRUE`,
+#' returns both
+#' the
 #' \eqn{
 #'   \mathbf{S}
 #' }
 #' matrix
+#' and
+#' the model-implied variance-covariance matrix
+#' \eqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-Sigmatheta)
+#' }
 #' derived from the
 #' \eqn{\mathbf{A}} matrix and
 #' \eqn{\sigma^2}
 #' vector.
+#' in a list.
+#' Otherwise,
+#' If `both = FALSE`,
+#' the model-implied variance-covariance matrix
+#' \eqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-Sigmatheta)
+#' }
+#' is returned if `SigmaMatrix = TRUE`.
+#' If `both = FALSE`,
+#' \eqn{
+#'   \mathbf{S}
+#' }
+#' matrix
+#' is returned if `SigmaMatrix = FALSE`.
+#'
 #' NOTE:
 #'   SigmaMatrix - option to filter out latent variables
 #'     If `filter = TRUE`, variance-covariance matrix of observed variables.
@@ -566,7 +609,8 @@ ram_S <- function(A,
                   F,
                   I,
                   SigmaMatrix = TRUE,
-                  filter = TRUE) {
+                  filter = TRUE,
+                  both = FALSE) {
   #  S <- matrix(
   #    data = 0,
   #    ncol = dim(A)[1],
@@ -615,18 +659,28 @@ ram_S <- function(A,
       filter = FALSE
     )
   }
-  if (SigmaMatrix) {
-    # filter = TRUE filter out the latent variables
+  # apply the filter
+  if (filter) {
     Sigmatheta <- ram_Sigmatheta(
       A = A,
       S = S,
       F = F,
       I = I,
-      filter = filter
+      filter = TRUE
     )
+  }
+  if (SigmaMatrix) {
     return(Sigmatheta)
   } else {
     return(S)
+  }
+  if (both) {
+    return(
+      list(
+        S = S,
+        Sigmatheta = Sigmatheta
+      )
+    )
   }
 }
 
