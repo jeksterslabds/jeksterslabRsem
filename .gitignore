@@ -41,8 +41,8 @@ vignettes/tests/*.pdf
 vignettes/tests/*.md
 
 # produced tests
-tests/testthat/*_files
-tests/testthat/*_cache
+tests/testthat/tests_*_files
+tests/testthat/tests_*_cache
 tests/testthat/*.html
 tests/testthat/*.pdf
 tests/testthat/*.md
