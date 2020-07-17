@@ -657,7 +657,7 @@ ram_S <- function(A,
       S = S,
       F = F,
       I = I,
-      filter = FALSE
+      filter = FALSE # should always be false
     )
   }
   # apply the filter
