@@ -488,6 +488,23 @@ ram_M <- function(A,
 #' @param sigma2 Numeric vector.
 #' Vector of variances \eqn{\sigma^2}.
 #' **The first element should be the variance of an exogenous variable.**
+#' @param both Logical.
+#' If `TRUE`, returns both
+#' the
+#' \eqn{
+#'   \mathbf{S}
+#' }
+#' marix
+#' and
+#' the model-implied variance-covariance matrix
+#' \eqn{
+#'   \boldsymbol{\Sigma}
+#'   \left(
+#'     \boldsymbol{\theta}
+#'   \right)
+#'   %(\#eq:sem-Sigmatheta)
+#' }
+#' in a list.
 #' @param SigmaMatrix Logical.
 #' If `TRUE`,
 #' returns
@@ -506,23 +523,6 @@ ram_M <- function(A,
 #' }
 #' matrix.
 #' Ignored if `both = TRUE`.
-#' @param both Logical.
-#' If `TRUE`, returns both
-#' the
-#' \eqn{
-#'   \mathbf{S}
-#' }
-#' marix
-#' and
-#' the model-implied variance-covariance matrix
-#' \eqn{
-#'   \boldsymbol{\Sigma}
-#'   \left(
-#'     \boldsymbol{\theta}
-#'   \right)
-#'   %(\#eq:sem-Sigmatheta)
-#' }
-#' in a list.
 #' @return If `both = TRUE`,
 #' returns both
 #' the
