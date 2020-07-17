@@ -667,7 +667,7 @@ ram_S <- function(A,
       S = S,
       F = F,
       I = I,
-      filter = TRUE
+      filter = filter
     )
   }
   if (both) {
