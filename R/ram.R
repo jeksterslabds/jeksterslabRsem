@@ -608,10 +608,9 @@ ram_S <- function(A,
                   sigma2,
                   F,
                   I,
-                  both = FALSE
+                  both = FALSE,
                   SigmaMatrix = TRUE,
-                  filter = TRUE
-                  ) {
+                  filter = TRUE                  ) {
   #  S <- matrix(
   #    data = 0,
   #    ncol = dim(A)[1],
