@@ -505,6 +505,7 @@ ram_M <- function(A,
 #'   \mathbf{S}
 #' }
 #' matrix.
+#' Ignored if `both = TRUE`.
 #' @param both Logical.
 #' If `TRUE`, returns both
 #' the
@@ -610,7 +611,7 @@ ram_S <- function(A,
                   I,
                   both = FALSE,
                   SigmaMatrix = TRUE,
-                  filter = TRUE                  ) {
+                  filter = TRUE) {
   #  S <- matrix(
   #    data = 0,
   #    ncol = dim(A)[1],
