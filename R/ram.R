@@ -123,7 +123,7 @@
 #' @param filter Logical.
 #' If `TRUE`, the `F` matrix is used.
 #' If `FALSE`, the `F` matrix is omitted and the argument `F` is ignored.
-#' See `Value` and `Details` below for more information.
+#' See Value and Details below for more information.
 #' @return Returns the model-implied variance-covariance matrix
 #' \eqn{\left( \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right) \right)}
 #' derived from the \eqn{\mathbf{A}},
@@ -323,8 +323,16 @@ ram_Sigmatheta <- function(A,
 ram_mutheta <- function(A,
                         F,
                         I,
-                        M) {
-  F %*% solve(I - A) %*% M
+                        M,
+                        filter = TRUE) {
+  # F %*% solve(I - A) %*% M
+  inverse <- solve(I - A)
+  full <- solve(I - A) %*% M
+  if (filter) {
+    return(F %*% full)
+  } else {
+    return(full)
+  }
 }
 
 #' Reticular Action Model - Mean Structure Vector
@@ -405,8 +413,16 @@ ram_mutheta <- function(A,
 ram_M <- function(A,
                   F,
                   I,
-                  mu) {
-  F %*% (I - A) %*% mu
+                  mu,
+                  filter = TRUE) {
+  # F %*% (I - A) %*% mu
+  inverse <- solve(I - A)
+  full <- F %*% (I - A) %*% mu
+  if (filter) {
+    return(F %*% full)
+  } else {
+    return(full)
+  }
 }
 
 #' Reticular Action Model - Model-Implied Variance Covariance Matrix
@@ -502,6 +518,11 @@ ram_M <- function(A,
 #' \eqn{\mathbf{A}} matrix and
 #' \eqn{\sigma^2}
 #' vector.
+#' NOTE:
+#'   SigmaMatrix - option to filter out latent variables
+#'     If `filter = TRUE`, variance-covariance matrix of observed variables.
+#'     If `filter = FALSE`, combined variance-covariance matrix of observed and latent variables.
+#'     S - always the full S matrix with the same dimensions as the input A matrix
 #' @examples
 #' A <- matrix(
 #'   data = c(
@@ -544,7 +565,8 @@ ram_S <- function(A,
                   sigma2,
                   F,
                   I,
-                  SigmaMatrix = TRUE) {
+                  SigmaMatrix = TRUE,
+                  filter = TRUE) {
   #  S <- matrix(
   #    data = 0,
   #    ncol = dim(A)[1],
@@ -600,7 +622,7 @@ ram_S <- function(A,
       S = S,
       F = F,
       I = I,
-      filter = TRUE
+      filter = filter
     )
     return(Sigmatheta)
   } else {
