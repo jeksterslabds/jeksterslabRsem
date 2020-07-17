@@ -466,7 +466,7 @@ ram_M <- function(A,
 #' @inherit ram_Sigmatheta references
 #' @param sigma2 Numeric vector.
 #' Vector of variances \eqn{\sigma^2}.
-#' **The first element should be the variance of an exogenous variable**
+#' **The first element should be the variance of an exogenous variable.**
 #' @param SigmaMatrix Logical.
 #' If `TRUE`,
 #' returns

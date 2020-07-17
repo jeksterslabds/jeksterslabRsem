@@ -24,13 +24,11 @@ Depends:
 Imports:
     jeksterslabRmatrix,
     jeksterslabRdist,
-    jeksterslabRdatarepo,
 	utils,
 	stats
 Remotes:
     jeksterslabds/jeksterslabRmatrix,
-    jeksterslabds/jeksterslabRdist,
-    jeksterslabds/jeksterslabRdatarepo
+    jeksterslabds/jeksterslabRdist
 Suggests:
     MASS,
     lavaan,
