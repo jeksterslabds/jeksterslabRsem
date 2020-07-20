@@ -32,6 +32,7 @@ Remotes:
 Suggests:
     MASS,
     lavaan,
+    semPlot,
 	knitr,
 	rmarkdown,
 	testthat,

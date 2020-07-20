@@ -3,6 +3,8 @@
 #' Calculates the maximum likelihood objective function.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
+#' @family objective functions
+#' @keywords objective
 #' @param Sigmatheta Model-implied variance-covariance matrix
 #'   (\eqn{\boldsymbol{\Sigma}\left( \boldsymbol{\theta} \right)}).
 #' @param Sigma Variance-covariance matrix.
@@ -19,6 +21,8 @@ fml <- function(Sigmatheta,
 #' Calculates the generalized least squares objective function.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
+#' @family objective functions
+#' @keywords objective
 #' @inheritParams fml
 #' @export
 fgls <- function(Sigmatheta,
@@ -31,6 +35,8 @@ fgls <- function(Sigmatheta,
 #' Calculates the unweighted least squares objective function.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
+#' @family objective functions
+#' @keywords objective
 #' @inheritParams fml
 #' @export
 fuls <- function(Sigmatheta,
