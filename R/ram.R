@@ -200,7 +200,9 @@ ram_Sigmatheta <- function(A,
   filter %*% invIminusA %*% S %*% t(invIminusA) %*% t(filter)
 }
 
-#' Reticular Action Model - Model-Implied Mean Vector
+#' @author Ivan Jacob Agaloos Pesigan
+#'
+#' @title Reticular Action Model - Model-Implied Mean Vector
 #'   \eqn{ \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
 #'
 #' @description Derives the model-implied mean vector
@@ -217,7 +219,6 @@ ram_Sigmatheta <- function(A,
 #'   where \eqn{\mathbf{M}} is the \eqn{p \times 1} mean structure,
 #'   that is, a vector of means and intercepts.
 #'
-#' @author Ivan Jacob Agaloos Pesigan
 #' @family SEM notation functions
 #' @keywords matrix ram
 #' @inheritParams ram_Sigmatheta
@@ -302,7 +303,9 @@ ram_mutheta <- function(M,
   filter %*% solve(diag(nrow(A)) - A) %*% M
 }
 
-#' Reticular Action Model - Mean Structure Vector \eqn{\mathbf{M}}
+#' @author Ivan Jacob Agaloos Pesigan
+#'
+#' @title Reticular Action Model - Mean Structure Vector \eqn{\mathbf{M}}
 #'
 #' @description Derives the mean structure vector \eqn{\mathbf{M}}
 #'   using the Reticular Action Model (RAM) notation.
@@ -313,7 +316,7 @@ ram_mutheta <- function(M,
 #'     \mathbf{F}^{\prime} \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
 #'   where \eqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
 #'   is the \eqn{k \times 1} model-implied mean vector.
-#' @author Ivan Jacob Agaloos Pesigan
+#'
 #' @family SEM notation functions
 #' @keywords matrix ram
 #' @inheritParams ram_Sigmatheta
@@ -400,7 +403,9 @@ ram_M <- function(mu,
   solve(diag(nrow(A)) - A) %*% t(filter) %*% mu
 }
 
-#' Reticular Action Model - The \eqn{ \mathbf{S} } Matrix
+#' @author Ivan Jacob Agaloos Pesigan
+#'
+#' @title Reticular Action Model - The \eqn{ \mathbf{S} } Matrix from \eqn{\sigma^2}
 #'
 #' @description Derives the \eqn{ \mathbf{S} } matrix
 #'   using the Reticular Action Model (RAM) notation
@@ -417,7 +422,6 @@ ram_M <- function(mu,
 #'   **Note that the first or last (see `start` argument) element
 #'   in the `A` and `S` matrices should be an exogenous variable.**
 #'
-#' @author Ivan Jacob Agaloos Pesigan
 #' @family SEM notation functions
 #' @keywords matrix ram
 #' @inheritParams ram_Sigmatheta
@@ -425,8 +429,8 @@ ram_M <- function(mu,
 #' @param sigma2 Numeric vector.
 #'   Vector of variances \eqn{\sigma^2}.
 #' @param start Logical.
-#'   If `TRUE`, an exogenous variable is positioned in the first position.
-#'   If `FALSE`, an exogenous variable is positioned in the last position.
+#'   If `TRUE`, an exogenous variable is positioned as the first element in the matrices.
+#'   If `FALSE`, an exogenous variable is positioned as the last element in the matrices.
 #' @return If `both = TRUE`, returns both the \eqn{ \mathbf{S} } matrix
 #' is derived from the \eqn{\mathbf{A}} matrix and \eqn{\sigma^2} vector.
 #' @examples
@@ -546,7 +550,6 @@ ram_sigma2 <- function(sigma2,
 #' and the model-implied variance-covariance matrix
 #' \eqn{ \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}
 #'
-#' @author Ivan Jacob Agaloos Pesigan
 #' @family SEM notation functions
 #' @keywords matrix ram
 #' @inheritParams ram_Sigmatheta
@@ -561,43 +564,24 @@ ram_S <- function(Sigmatheta,
   filter %*% invIminusA %*% Sigmatheta %*% t(invIminusA) %*% t(filter)
 }
 
-#' Reticular Action Model - Residuals
-#' \eqn{ \boldsymbol{ \hat{\Sigma} }
-#'   -
-#'   \boldsymbol{
-#'     \hat{\Sigma}
-#'   }
-#'   \left(
-#'     \boldsymbol{
-#'       \hat{\theta}
-#'     }
-#'   \right)
-#' }
+#' @author Ivan Jacob Agaloos Pesigan
 #'
-#' \deqn{
-#'   \boldsymbol{
-#'     \hat{\Sigma}
+#' @title Reticular Action Model - Residual Matrix
+#'   \eqn{
+#'   \boldsymbol{\hat{\Sigma}} - \boldsymbol{\hat{\Sigma}}
+#'   \left(\boldsymbol{\hat{\theta}}\right)
 #'   }
-#'   -
-#'   \boldsymbol{
-#'     \hat{\Sigma}
+#'
+#' @description The residual matrix, that is, the discrepancy
+#'   between the fitted covariance matrix and the fitted model-implied covariance matrix
+#'   is given by
+#'   \deqn{
+#'   \boldsymbol{\hat{\Sigma}} - \boldsymbol{\hat{\Sigma}}
+#'   \left(\boldsymbol{\hat{\theta}}\right)
 #'   }
-#'   \left(
-#'     \boldsymbol{
-#'       \hat{\theta}
-#'     }
-#'   \right)
-#' }
-#' where
-#' \deqn{
-#'   \boldsymbol{
-#'     \hat{\Sigma}
-#'   }
-#'   \left(
-#'     \hat{
-#'       \boldsymbol{\theta}
-#'     }
-#'   \right)
+#'   where
+#'   \deqn{
+#'     \boldsymbol{\hat{\Sigma}} \left(\boldsymbol{\hat{\theta}} \right)
 #'   =
 #'   \mathbf{F}
 #'   \left(
@@ -613,7 +597,6 @@ ram_S <- function(Sigmatheta,
 #' }
 #' Items with a hat (^) are estimates using the sample data.
 #'
-#' @author Ivan Jacob Agaloos Pesigan
 #' @family SEM notation functions
 #' @keywords matrix ram
 #' @inheritParams ram_Sigmatheta
@@ -644,11 +627,11 @@ ram_S <- function(Sigmatheta,
 #'   Estimated symmetric paths (double-headed arrows),
 #'   representing variances and covariances.
 #' @export
-ram_residuals <- function(Sigmahat,
-                          Sigmathetahat = NULL,
-                          Ahat,
-                          Shat,
-                          filter) {
+ram_res <- function(Sigmahat,
+                    Sigmathetahat = NULL,
+                    Ahat,
+                    Shat,
+                    filter) {
   if (is.null(Sigmathetahat)) {
     Sigmathetahat <- ram_Sigmatheta(
       A = Ahat,

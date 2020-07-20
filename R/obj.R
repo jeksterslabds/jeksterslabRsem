@@ -4,15 +4,15 @@
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @family objective functions
-#' @keywords objective
+#' @keywords optimization
 #' @param Sigmatheta Model-implied variance-covariance matrix
 #'   (\eqn{\boldsymbol{\Sigma}\left( \boldsymbol{\theta} \right)}).
-#' @param Sigma Variance-covariance matrix.
+#' @param Sigma Variance-covariance matrix
 #'   (\eqn{\boldsymbol{\Sigma}}).
 #' @import jeksterslabRmatrix
 #' @export
-fml <- function(Sigmatheta,
-                Sigma) {
+ml <- function(Sigmatheta,
+               Sigma) {
   log(det(Sigmatheta)) + tr(Sigma %*% solve(Sigmatheta)) - log(det(Sigma)) - nrow(Sigma)
 }
 
@@ -22,11 +22,11 @@ fml <- function(Sigmatheta,
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @family objective functions
-#' @keywords objective
-#' @inheritParams fml
+#' @keywords optimization
+#' @inheritParams ml
 #' @export
-fgls <- function(Sigmatheta,
-                 Sigma) {
+gls <- function(Sigmatheta,
+                Sigma) {
   (1 / 2) %*% tr((diag(nrow(Sigma)) - Sigmatheta %*% solve(Sigma))^2)
 }
 
@@ -36,10 +36,10 @@ fgls <- function(Sigmatheta,
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @family objective functions
-#' @keywords objective
-#' @inheritParams fml
+#' @keywords optimization
+#' @inheritParams ml
 #' @export
-fuls <- function(Sigmatheta,
-                 Sigma) {
+uls <- function(Sigmatheta,
+                Sigma) {
   (1 / 2) %*% tr((Sigma - Sigmatheta))^2
 }

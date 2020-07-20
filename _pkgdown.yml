@@ -9,4 +9,4 @@ reference:
 - title: Objective Functions
   desc:  Optimization objective functions.
 - contents:
-  - has_keyword("objective")
+  - has_keyword("optimization")
