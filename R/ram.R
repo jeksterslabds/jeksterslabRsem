@@ -1,63 +1,36 @@
 #' @author Ivan Jacob Agaloos Pesigan
 #'
 #' @title Reticular Action Model - Model-Implied Variance-Covariance Matrix
-#'   \eqn{ \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}
+#'   \eqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}
 #'
 #' @description Derives the model-implied variance-covariance matrix
-#'   \eqn{ \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
-#'     %(\#eq:sem-Sigmatheta)
-#'   }
+#'   \eqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}
 #'   using the Reticular Action Model (RAM) notation.
 #'
 #' @details The model-implied variance-covariance matrix
-#'   \eqn{ \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}
+#'   \eqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}
 #'   as a function of Reticular Action Model (RAM) matrices
 #'   is given by
-#'   \deqn{ \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
-#'     =
-#'     \mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S}
-#'     \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\prime}
-#'     \mathbf{F}^{\prime}}
-#'   where
-#'   - \eqn{\mathbf{A}} represents asymmetric paths (single-headed arrows),
-#'     such as regression coefficients and factor loadings.
-#'   - \eqn{\mathbf{S}} represents symmetric paths (double-headed arrows),
-#'     such as variances and covariances.
-#'   - \eqn{\mathbf{F}} represents the filter matrix
-#'     used to select the observed variables.
-#'   - \eqn{\mathbf{I}} represents the identity matrix.
-#'
-#'   The dimensions of the matrices are as follows:
 #'
 #'   \deqn{
-#'     \mathbf{A}_{p \times p}, \\
-#'     \mathbf{S}_{p \times p}, \\
-#'     \mathbf{I}_{p \times p}, \\
-#'     \mathbf{F}_{k \times p}, \\
-#'     \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)_{k \times k}
+#'     \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+#'     =
+#'     \mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S}
+#'     \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{T} \mathbf{F}^{T}
 #'   }
 #'
 #'   where
 #'
-#'   - \eqn{k} number of observed variables
-#'   - \eqn{q} number of latent variables
-#'   - \eqn{p} number of observed and latent variables, that is \eqn{k + q}
-#'
-#'   \eqn{\mathbf{I}} is an identity matrix,
-#'   meaning the diagonal elements are ones,
-#'   and the off-diagonal elements are zeroes.
-#'   Since \eqn{\mathbf{I}} has the same dimensions
-#'   as \eqn{\mathbf{A}_{p \times p}}, and \eqn{\mathbf{S}_{p \times p}},
-#'   the function derives \eqn{\mathbf{I}} automatically.
-#'
-#'   \eqn{\mathbf{F}} is a filter matrix.
-#'   The number of columns \eqn{p}
-#'   represent the number of observed and latent variables.
-#'   The number of rows represent the number of observed variables.
-#'   The off-diagonal elements are set to zero.
-#'   The diagonal elements are set to zero or one.
-#'   Setting the \eqn{k}-th diagonal element to **one filters in**
-#'   the variable that corresponds to that position.
+#'   - \eqn{\mathbf{A}_{p \times p}} represents asymmetric paths (single-headed arrows),
+#'     such as regression coefficients and factor loadings,
+#'   - \eqn{\mathbf{S}_{p \times p}} represents symmetric paths (double-headed arrows),
+#'     such as variances and covariances,
+#'   - \eqn{\mathbf{F}_{k \times p}} represents the filter matrix
+#'     used to select the observed variables,
+#'   - \eqn{\mathbf{I}_{p \times p}} represents an identity matrix,
+#'   - \eqn{k} number of observed variables,
+#'   - \eqn{q} number of latent variables, and
+#'   - \eqn{p} number of observed and latent variables, that is \eqn{k + q} .
 #'
 #' @family SEM notation functions
 #' @keywords matrix ram
@@ -101,7 +74,7 @@
 #' rownames(S) <- c("X", "M", "Y")
 #' colnames(filter) <- c("X", "M", "Y")
 #' rownames(filter) <- c("X", "M", "Y")
-#' Sigma <- ram_Sigmatheta(A = A, S = S, filter = filter)
+#' Sigma <- ramSigmatheta(A = A, S = S, filter = filter)
 #' Sigma
 #'
 #' #-----------------------------------------------------------------------------
@@ -130,7 +103,7 @@
 #' rownames(S) <- c("X", "M", "Y", "epsilonM", "epsilonY")
 #' colnames(filter) <- c("X", "M", "Y", "epsilonM", "epsilonY")
 #' rownames(filter) <- c("X", "M", "Y")
-#' Sigma <- ram_Sigmatheta(A = A, S = S, filter = filter)
+#' Sigma <- ramSigmatheta(A = A, S = S, filter = filter)
 #' Sigma
 #' # model specification
 #' model <- "
@@ -168,7 +141,7 @@
 #' rownames(S) <- c("eta", "y1", "y2", "y3", "y4", "y5")
 #' colnames(filter) <- c("eta", "y1", "y2", "y3", "y4", "y5")
 #' rownames(filter) <- c("y1", "y2", "y3", "y4", "y5")
-#' Sigma <- ram_Sigmatheta(A = A, S = S, filter = filter)
+#' Sigma <- ramSigmatheta(A = A, S = S, filter = filter)
 #' model <- "
 #'   eta =~ NA * y1 + y2 + y3 + y4 + y5
 #'   eta ~~ 1 * eta
@@ -193,9 +166,9 @@
 #'   Some algebraic properties of the Reticular Action Model for moment structures.
 #'   *British Journal of Mathematical and Statistical Psychology*, *37* (2), 234--251.
 #' @export
-ram_Sigmatheta <- function(A,
-                           S,
-                           filter) {
+ramSigmatheta <- function(A,
+                          S,
+                          filter) {
   invIminusA <- solve(diag(nrow(A)) - A)
   filter %*% invIminusA %*% S %*% t(invIminusA) %*% t(filter)
 }
@@ -203,26 +176,40 @@ ram_Sigmatheta <- function(A,
 #' @author Ivan Jacob Agaloos Pesigan
 #'
 #' @title Reticular Action Model - Model-Implied Mean Vector
-#'   \eqn{ \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
+#'   \eqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
 #'
 #' @description Derives the model-implied mean vector
-#'   \eqn{ \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
+#'   \eqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
 #'   using the Reticular Action Model (RAM) notation.
 #'
 #' @details The model-implied mean vector
-#'   \eqn{ \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
+#'   \eqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
 #'   as a function of Reticular Action Model (RAM) matrices
 #'   is given by
+#'
 #'   \deqn{
 #'     \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
-#'     = \mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{M}}
-#'   where \eqn{\mathbf{M}} is the \eqn{p \times 1} mean structure,
-#'   that is, a vector of means and intercepts.
+#'     =
+#'     \mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{M}
+#'   }
+#'
+#'   where
+#'
+#'   - \eqn{\mathbf{A}_{p \times p}} represents asymmetric paths (single-headed arrows),
+#'     such as regression coefficients and factor loadings,
+#'   - \eqn{\mathbf{I}_{p \times p}} represents an identity matrix,
+#'   - \eqn{\mathbf{F}_{k \times p}} represents the filter matrix
+#'     used to select the observed variables,
+#'   - \eqn{\mathbf{M}_{p \times 1}} represents the mean structure,
+#'     that is, a vector of means and intercepts,
+#'   - \eqn{k} number of observed variables,
+#'   - \eqn{q} number of latent variables, and
+#'   - \eqn{p} number of observed and latent variables, that is \eqn{k + q} .
 #'
 #' @family SEM notation functions
 #' @keywords matrix ram
-#' @inheritParams ram_Sigmatheta
-#' @inherit ram_Sigmatheta references
+#' @inheritParams ramSigmatheta
+#' @inherit ramSigmatheta references
 #' @param M `p x 1` numeric vector \eqn{\mathbf{M}_{p \times 1}}.
 #'   Mean structure. Vector of means and intercepts.
 #' @return Returns the model-implied mean vector
@@ -251,7 +238,7 @@ ram_Sigmatheta <- function(A,
 #' rownames(A) <- c("X", "M", "Y")
 #' colnames(filter) <- c("X", "M", "Y")
 #' rownames(filter) <- c("X", "M", "Y")
-#' ram_mutheta(M = M, A = A, filter = filter)
+#' rammutheta(M = M, A = A, filter = filter)
 #'
 #' #-----------------------------------------------------------------------------
 #' # Simple mediation model with observed variables------------------------------
@@ -277,7 +264,7 @@ ram_Sigmatheta <- function(A,
 #' rownames(A) <- c("X", "M", "Y", "epsilonM", "epsilonY")
 #' colnames(filter) <- c("X", "M", "Y", "epsilonM", "epsilonY")
 #' rownames(filter) <- c("X", "M", "Y")
-#' ram_mutheta(M = M, A = A, filter = filter)
+#' rammutheta(M = M, A = A, filter = filter)
 #'
 #' # One-factor CFA model--------------------------------------------------------
 #' # The variables in the model are eta, y1, y2, y3, y4, y5.
@@ -295,11 +282,11 @@ ram_Sigmatheta <- function(A,
 #' rownames(A) <- c("eta", "y1", "y2", "y3", "y4", "y5")
 #' colnames(filter) <- c("eta", "y1", "y2", "y3", "y4", "y5")
 #' rownames(filter) <- c("y1", "y2", "y3", "y4", "y5")
-#' ram_mutheta(M = M, A = A, filter = filter)
+#' rammutheta(M = M, A = A, filter = filter)
 #' @export
-ram_mutheta <- function(M,
-                        A,
-                        filter) {
+rammutheta <- function(M,
+                       A,
+                       filter) {
   filter %*% solve(diag(nrow(A)) - A) %*% M
 }
 
@@ -312,15 +299,31 @@ ram_mutheta <- function(M,
 #'
 #' @details The mean structure vector \eqn{\mathbf{M}}
 #'   as a function of Reticular Action Model (RAM) matrices is given by
-#'   \deqn{ \mathbf{M} = \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-#'     \mathbf{F}^{\prime} \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
-#'   where \eqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
-#'   is the \eqn{k \times 1} model-implied mean vector.
+#'
+#'   \deqn{
+#'     \mathbf{M}
+#'     =
+#'     \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+#'     \mathbf{F}^{T} \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+#'   }
+#'
+#'   where
+#'
+#'   - \eqn{\mathbf{A}_{p \times p}} represents asymmetric paths (single-headed arrows),
+#'     such as regression coefficients and factor loadings,
+#'   - \eqn{\mathbf{I}_{p \times p}} represents an identity matrix,
+#'   - \eqn{\mathbf{F}_{k \times p}} represents the filter matrix
+#'     used to select the observed variables,
+#'   - \eqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
+#'     is the \eqn{k \times 1} model-implied mean vector
+#'   - \eqn{k} number of observed variables,
+#'   - \eqn{q} number of latent variables, and
+#'   - \eqn{p} number of observed and latent variables, that is \eqn{k + q} .
 #'
 #' @family SEM notation functions
 #' @keywords matrix ram
-#' @inheritParams ram_Sigmatheta
-#' @inherit ram_Sigmatheta references
+#' @inheritParams ramSigmatheta
+#' @inherit ramSigmatheta references
 #' @param mu `k x 1` numeric vector
 #'   \eqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)_{k \times 1}} .
 #'   Model-implied meam vector.
@@ -351,7 +354,7 @@ ram_mutheta <- function(M,
 #' rownames(A) <- c("X", "M", "Y")
 #' colnames(filter) <- c("X", "M", "Y")
 #' rownames(filter) <- c("X", "M", "Y")
-#' ram_M(mu = mu, A = A, filter = filter)
+#' ramM(mu = mu, A = A, filter = filter)
 #'
 #' #-----------------------------------------------------------------------------
 #' # Simple mediation model with observed variables------------------------------
@@ -377,7 +380,7 @@ ram_mutheta <- function(M,
 #' rownames(A) <- c("X", "M", "Y", "epsilonM", "epsilonY")
 #' colnames(filter) <- c("X", "M", "Y", "epsilonM", "epsilonY")
 #' rownames(filter) <- c("X", "M", "Y")
-#' ram_M(mu = mu, A = A, filter = filter)
+#' ramM(mu = mu, A = A, filter = filter)
 #' #'
 #' # One-factor CFA model--------------------------------------------------------
 #' # The variables in the model are eta, y1, y2, y3, y4, y5.
@@ -395,44 +398,38 @@ ram_mutheta <- function(M,
 #' rownames(A) <- c("eta", "y1", "y2", "y3", "y4", "y5")
 #' colnames(filter) <- c("eta", "y1", "y2", "y3", "y4", "y5")
 #' rownames(filter) <- c("y1", "y2", "y3", "y4", "y5")
-#' ram_M(mu = mu, A = A, filter = filter)
+#' ramM(mu = mu, A = A, filter = filter)
 #' @export
-ram_M <- function(mu,
-                  A,
-                  filter) {
+ramM <- function(mu,
+                 A,
+                 filter) {
   solve(diag(nrow(A)) - A) %*% t(filter) %*% mu
 }
 
 #' @author Ivan Jacob Agaloos Pesigan
 #'
-#' @title Reticular Action Model - The \eqn{ \mathbf{S} } Matrix from \eqn{\sigma^2}
+#' @title Reticular Action Model - The \eqn{\mathbf{S}} Matrix from \eqn{\sigma^2}
 #'
-#' @description Derives the \eqn{ \mathbf{S} } matrix
+#' @description Derives the \eqn{\mathbf{S}} matrix
 #'   using the Reticular Action Model (RAM) notation
 #'   from variable variances \eqn{\sigma^2}.
-#'   The off-diagonal elements of the \eqn{ \mathbf{S} } matrix are assumed to be zeroes.
+#'   The off-diagonal elements of the \eqn{\mathbf{S}} matrix are assumed to be zeroes.
 #'
-#' @details The \eqn{ \mathbf{S} } matrix
-#'   is derived using
-#'   the \eqn{\mathbf{A}}
-#'   matrix
-#'   and sigma squared
-#'   \eqn{\left( \sigma^2 \right)}
-#'   vector (variances).
+#' @details The \eqn{\mathbf{S}} matrix is derived using the \eqn{\mathbf{A}} matrix
+#'   and sigma squared \eqn{\left( \sigma^2 \right)} vector (variances).
 #'   **Note that the first or last (see `start` argument) element
 #'   in the `A` and `S` matrices should be an exogenous variable.**
 #'
 #' @family SEM notation functions
 #' @keywords matrix ram
-#' @inheritParams ram_Sigmatheta
-#' @inherit ram_Sigmatheta references
+#' @inheritParams ramSigmatheta
+#' @inherit ramSigmatheta references
 #' @param sigma2 Numeric vector.
 #'   Vector of variances \eqn{\sigma^2}.
 #' @param start Logical.
 #'   If `TRUE`, an exogenous variable is positioned as the first element in the matrices.
 #'   If `FALSE`, an exogenous variable is positioned as the last element in the matrices.
-#' @return If `both = TRUE`, returns both the \eqn{ \mathbf{S} } matrix
-#' is derived from the \eqn{\mathbf{A}} matrix and \eqn{\sigma^2} vector.
+#' @return Returns the  \eqn{ \mathbf{S} } matrix.
 #' @examples
 #' #-----------------------------------------------------------------------------
 #' # Simple mediation model with observed variables------------------------------
@@ -452,7 +449,7 @@ ram_M <- function(mu,
 #' sigma2 <- c(X = sigma2X, M = sigma2M, Y = sigma2Y)
 #' colnames(A) <- c("X", "M", "Y")
 #' rownames(A) <- c("X", "M", "Y")
-#' ram_sigma2(sigma2 = sigma2, A = A)
+#' ramsigma2(sigma2 = sigma2, A = A)
 #'
 #' #-----------------------------------------------------------------------------
 #' # Simple mediation model with observed variables------------------------------
@@ -472,7 +469,7 @@ ram_M <- function(mu,
 #' sigma2 <- c(X = sigma2X, M = sigma2M, Y = sigma2Y)
 #' colnames(A) <- c("X", "M", "Y", "epsilonM", "epsilonY")
 #' rownames(A) <- c("X", "M", "Y", "epsilonM", "epsilonY")
-#' ram_sigma2(sigma2 = sigma2, A = A)
+#' ramsigma2(sigma2 = sigma2, A = A)
 #'
 #' # One-factor CFA model--------------------------------------------------------
 #' # The variables in the model are eta, y1, y2, y3, y4, y5.
@@ -486,7 +483,7 @@ ram_M <- function(mu,
 #' sigma2 <- c(eta = 1, y1 = 0.75, y2 = 0.75, y3 = 0.75, y4 = 0.75, y5 = 0.75)
 #' colnames(A) <- c("eta", "y1", "y2", "y3", "y4", "y5")
 #' rownames(A) <- c("eta", "y1", "y2", "y3", "y4", "y5")
-#' ram_sigma2(sigma2 = sigma2, A = A)
+#' ramsigma2(sigma2 = sigma2, A = A)
 #'
 #' # One-factor CFA model--------------------------------------------------------
 #' # The variables in the model are eta, y1, y2, y3, y4, y5.
@@ -500,11 +497,11 @@ ram_M <- function(mu,
 #' sigma2 <- c(y1 = 0.75, y2 = 0.75, y3 = 0.75, y4 = 0.75, y5 = 0.75, eta = 1)
 #' colnames(A) <- c("y1", "y2", "y3", "y4", "y5", "eta")
 #' rownames(A) <- c("y1", "y2", "y3", "y4", "y5", "eta")
-#' ram_sigma2(sigma2 = sigma2, A = A, start = FALSE)
+#' ramsigma2(sigma2 = sigma2, A = A, start = FALSE)
 #' @export
-ram_sigma2 <- function(sigma2,
-                       A,
-                       start = TRUE) {
+ramsigma2 <- function(sigma2,
+                      A,
+                      start = TRUE) {
   message(
     "The off-diagonal elements of the S matrix are assumed to be zeroes."
   )
@@ -515,7 +512,7 @@ ram_sigma2 <- function(sigma2,
   )
   # filter as identity matrix to retain all variables
   filter <- diag(nrow(A))
-  Sigmatheta_temp <- ram_Sigmatheta(
+  Sigmatheta_temp <- ramSigmatheta(
     A = A,
     S = S,
     filter = filter
@@ -527,41 +524,13 @@ ram_sigma2 <- function(sigma2,
   }
   for (i in index) {
     S[i, i] <- sigma2[i] - Sigmatheta_temp[i, i]
-    Sigmatheta_temp <- ram_Sigmatheta(
+    Sigmatheta_temp <- ramSigmatheta(
       A = A,
       S = S,
       filter = filter
     )
   }
   S
-}
-
-#' @author Ivan Jacob Agaloos Pesigan
-#'
-#' @title Reticular Action Model - The \eqn{ \mathbf{S} } Matrix
-#'
-#' @description Derives the \eqn{ \mathbf{S} } matrix
-#'   using the Reticular Action Model (RAM) notation.
-#'
-#' @details The \eqn{ \mathbf{S} } matrix
-#' is derived using
-#' the \eqn{\mathbf{A}}
-#' matrix
-#' and the model-implied variance-covariance matrix
-#' \eqn{ \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}
-#'
-#' @family SEM notation functions
-#' @keywords matrix ram
-#' @inheritParams ram_Sigmatheta
-#' @param Sigmatheta Matrix.
-#'   Model-implied variance-covariance matrix
-#'   \eqn{ \boldsymbol{ \Sigma } \left( \boldsymbol{ \theta } \right) } .
-#' @export
-ram_S <- function(Sigmatheta,
-                  A,
-                  filter) {
-  invIminusA <- solve(I - A)
-  filter %*% invIminusA %*% Sigmatheta %*% t(invIminusA) %*% t(filter)
 }
 
 #' @author Ivan Jacob Agaloos Pesigan
@@ -592,14 +561,14 @@ ram_S <- function(Sigmatheta,
 #'     \left(
 #'       \mathbf{I} - \mathbf{\hat{A}}
 #'     \right)^{-1}
-#'   \right]^{\prime}
-#'   \mathbf{F}^{\prime} .
+#'   \right]^{T}
+#'   \mathbf{F}^{T} .
 #' }
 #' Items with a hat (^) are estimates using the sample data.
 #'
 #' @family SEM notation functions
 #' @keywords matrix ram
-#' @inheritParams ram_Sigmatheta
+#' @inheritParams ramSigmatheta
 #' @param Sigmahat Matrix.
 #' Estimated variance-covariance matrix
 #' \eqn{
@@ -627,13 +596,13 @@ ram_S <- function(Sigmatheta,
 #'   Estimated symmetric paths (double-headed arrows),
 #'   representing variances and covariances.
 #' @export
-ram_res <- function(Sigmahat,
-                    Sigmathetahat = NULL,
-                    Ahat,
-                    Shat,
-                    filter) {
+ramres <- function(Sigmahat,
+                   Sigmathetahat = NULL,
+                   Ahat,
+                   Shat,
+                   filter) {
   if (is.null(Sigmathetahat)) {
-    Sigmathetahat <- ram_Sigmatheta(
+    Sigmathetahat <- ramSigmatheta(
       A = Ahat,
       S = Shat,
       filter = filter
