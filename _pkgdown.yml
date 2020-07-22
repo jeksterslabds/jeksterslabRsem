@@ -6,7 +6,3 @@ reference:
   desc:  Model-implied matrices using the Reticular Action Model.
 - contents:
   - has_keyword("ram")
-- title: Objective Functions
-  desc:  Optimization objective functions.
-- contents:
-  - has_keyword("optimization")

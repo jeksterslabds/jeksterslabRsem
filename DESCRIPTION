@@ -23,12 +23,11 @@ Depends:
 	R (>= 3.5.0)
 Imports:
     jeksterslabRmatrix,
-    jeksterslabRdist,
 	utils,
 	stats
 Remotes:
     jeksterslabds/jeksterslabRmatrix,
-    jeksterslabds/jeksterslabRdist
+    jeksterslabds/jeksterslabRdatarepo
 Suggests:
     MASS,
     lavaan,
@@ -36,5 +35,6 @@ Suggests:
 	knitr,
 	rmarkdown,
 	testthat,
-    microbenchmark
+    microbenchmark,
+    jeksterslabRdatarepo
 RoxygenNote: 7.1.1
